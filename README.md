@@ -1,10 +1,24 @@
 # CertBot manual DNS management scripts via Yandex API
 
-[Yandex API Access](https://yandex.ru/dev/api360/doc/concepts/access.html)
+## Useful links
 
-[Yandex DNS API](https://yandex.ru/dev/api360/doc/ref/DomainDNSService.html)
+- [Yandex API Access](https://yandex.ru/dev/api360/doc/concepts/access.html)
+- [Yandex DNS API](https://yandex.ru/dev/api360/doc/ref/DomainDNSService.html)
 
-## Generate wildcard
+## Examples
+
+### Clone it first
+
+```bash
+git clone https://github.com/magf/certbot-dns-yandex.git first
+cd  certbot-dns-yandex
+```
+
+> **warning**
+> **See this scripts before running!**
+> I don't give you any guarantees. You do this at your own risk.
+
+### Generate wildcard
 
 ```bash
 sudo certbot certonly \
@@ -22,7 +36,7 @@ sudo certbot certonly \
 
 ```
 
-## Force Renew
+### Force Renew
 
 ```bash
 sudo renew certonly \
@@ -36,3 +50,6 @@ sudo renew certonly \
   -d *.mydomain.tld
 
 ```
+
+> **warning**
+> **Do not delete or move scripts after the certificate is issued.** CertBot will create a cronjob that will look for them here when requesting a certificate renewal.
