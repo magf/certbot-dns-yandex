@@ -4,7 +4,7 @@ source "$_dir/config.sh"
 
 # Split FQDN to domain and subdomain if present
 domain=`echo $CERTBOT_DOMAIN | sed -E 's/(.*)\.(.+\..+)$/\2/'`
-subdomain=`echo $CERTBOT_DOMAIN | sed -E 's/(.*)\.(.+\..+)$/\1/'`
+subdomain=`echo $CERTBOT_DOMAIN | sed -E 's/\.?[^.]+\.[^.]+$//'`; [[ $subdomain ]] && subdomain=.$subdomain
 	
 echo "`date` *AUTH* -- CERTBOT_DOMAIN \"$CERTBOT_DOMAIN\"" >> ${logFile}
 echo "`date` *AUTH* -- CERTBOT_VALIDATION \"$CERTBOT_VALIDATION\""  >> ${logFile}
@@ -12,7 +12,7 @@ echo "`date` *AUTH* -- Asked domain: \"$domain\"" >> ${logFile}
 echo "`date` *AUTH* -- Asked subdomain: \"$subdomain\"" >> ${logFile}
 
 # Create TXT record
-CREATE_DOMAIN="_acme-challenge.${subdomain}"
+CREATE_DOMAIN="_acme-challenge${subdomain}"
 RECORD_ID=`curl --silent -X POST https://api360.yandex.net/directory/v1/org/${orgId}/domains/${domain}/dns \
         -H "Authorization: OAuth ${OAuth}" \
         -H "Content-Type: application/json" \
